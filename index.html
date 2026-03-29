@@ -1,149 +1,131 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🧠 Teste de QI Rápido e Confiável</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            color: #333;
-        }
-        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
-        
-        /* HOME */
-        .home { text-align: center; color: white; padding: 80px 20px; }
-        .home h1 { font-size: clamp(2.5rem, 8vw, 5rem); margin-bottom: 20px; background: linear-gradient(45deg, #fff, #f0f0f0); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .home p { font-size: 1.4rem; margin-bottom: 40px; opacity: 0.95; line-height: 1.6; }
-        .btn-primary { background: linear-gradient(45deg, #ff6b6b, #ff8e8e); color: white; border: none; padding: 20px 60px; font-size: 1.3rem; border-radius: 50px; cursor: pointer; transition: all 0.3s; box-shadow: 0 15px 35px rgba(255,107,107,0.4); font-weight: 600; }
-        .btn-primary:hover { transform: translateY(-5px); box-shadow: 0 20px 45px rgba(255,107,107,0.6); }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teste de QI</title>
 
-        /* TESTE */
-        .test { background: white; border-radius: 25px; padding: 40px; margin: 20px 0; box-shadow: 0 25px 60px rgba(0,0,0,0.15); display: none; animation: slideIn 0.8s ease; }
-        .progress-bar { background: #f0f2f5; height: 14px; border-radius: 10px; margin-bottom: 30px; overflow: hidden; }
-        .progress { background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%); height: 100%; width: 0%; transition: width 0.6s ease; border-radius: 10px; }
-        .question { font-size: 1.5rem; font-weight: 700; margin-bottom: 30px; line-height: 1.5; color: #1a1a1a; }
-        .options { display: grid; gap: 18px; margin-bottom: 40px; }
-        .option { background: #f8f9fa; border: 3px solid #e9ecef; border-radius: 18px; padding: 25px 20px; cursor: pointer; transition: all 0.3s; font-size: 1.15rem; display: flex; align-items: center; gap: 20px; }
-        .option:hover { background: #e3f2fd; border-color: #2196f3; transform: translateX(8px); }
-        .option.selected { background: linear-gradient(45deg, #4facfe, #00f2fe); color: white; border-color: #4facfe; }
-        .btn-nav { background: linear-gradient(45deg, #667eea, #764ba2); color: white; border: none; padding: 18px 45px; border-radius: 25px; cursor: pointer; font-size: 1.15rem; font-weight: 600; transition: all 0.3s; margin: 8px; }
-        .btn-nav:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(102,126,234,0.4); }
-        .btn-nav:disabled { opacity: 0.5; cursor: not-allowed; }
-        .motivation { text-align: center; color: #666; font-style: italic; margin: 25px 0; font-size: 1.15rem; background: #f8f9fa; padding: 20px; border-radius: 15px; }
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #0f172a;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
-        /* PAGAMENTO */
-        .payment { background: white; border-radius: 25px; padding: 60px 40px; text-align: center; box-shadow: 0 25px 60px rgba(0,0,0,0.15); display: none; animation: slideIn 0.8s; margin: 20px 0; }
-        .payment h2 { font-size: 2.8rem; color: #2c3e50; margin-bottom: 25px; }
-        .payment p { font-size: 1.25rem; color: #666; margin-bottom: 35px; line-height: 1.7; }
-        .price { font-size: 4rem; font-weight: 900; background: linear-gradient(45deg, #ff6b6b, #ff8e8e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 25px 0; }
-        .pix-container { background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border: 3px dashed #dee2e6; border-radius: 20px; padding: 40px; margin: 40px 0; }
-        .pix-key { font-family: 'Courier New', monospace; font-size: 1.4rem; letter-spacing: 2px; word-break: break-all; background: white; padding: 20px; border-radius: 12px; font-weight: 600; color: #2c3e50; }
-        .btn-pay { background: linear-gradient(45deg, #00b894, #00cec9) !important; font-size: 1.4rem !important; padding: 25px 70px !important; margin-top: 30px; }
+.container {
+  width: 90%;
+  max-width: 500px;
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
 
-        /* RESULTADO */
-        .result { background: white; border-radius: 25px; padding: 60px 40px; text-align: center; box-shadow: 0 25px 60px rgba(0,0,0,0.15); display: none; animation: slideIn 0.8s; margin: 20px 0; }
-        .qi-score { font-size: clamp(5rem, 15vw, 8rem); font-weight: 900; background: linear-gradient(45deg, #4facfe, #00f2fe); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 30px 0; }
-        .classification { font-size: 2rem; color: #2c3e50; margin: 25px 0; font-weight: 700; padding: 20px; background: #f8f9fa; border-radius: 15px; display: inline-block; }
-        .explanation { font-size: 1.3rem; color: #666; margin: 40px 0; line-height: 1.8; }
-        .btn-share { background: linear-gradient(45deg, #00b894, #00cec9); margin: 20px 10px; padding: 18px 50px; }
+button {
+  background: #22c55e;
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 15px;
+}
 
-        @keyframes slideIn { from { opacity: 0; transform: translateY(60px); } to { opacity: 1; transform: translateY(0); } }
-        @media (max-width: 768px) { .container { padding: 15px; } .test, .payment, .result { padding: 30px 25px; } .question { font-size: 1.3rem; } }
-    </style>
+button:hover {
+  background: #16a34a;
+}
+
+.opcao {
+  display: block;
+  margin: 8px 0;
+  padding: 10px;
+  background: #334155;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.opcao:hover {
+  background: #475569;
+}
+</style>
 </head>
+
 <body>
-    <div class="container">
-        <!-- 🏠 INÍCIO -->
-        <div id="home" class="home">
-            <h1>🧠 Teste de QI Rápido</h1>
-            <p><strong>Descubra seu QI real em 10 minutos</strong><br>32 perguntas científicas • Mais de 1M pessoas testaram • Resultado imediato</p>
-            <button class="btn-primary" onclick="startTest()">🚀 Começar Teste GRÁTIS</button>
-        </div>
 
-        <!-- 📝 TESTE -->
-        <div id="test" class="test">
-            <div class="progress-bar"><div id="progress" class="progress"></div></div>
-            <div id="question" class="question"></div>
-            <div id="options" class="options"></div>
-            <div id="motivation" class="motivation"></div>
-            <button id="prevBtn" class="btn-nav" onclick="changeQuestion(-1)" style="display:none;">← Anterior</button>
-            <button id="nextBtn" class="btn-nav" onclick="changeQuestion(1)">Próxima →</button>
-        </div>
+<div class="container" id="app">
+  <h2>Teste de QI</h2>
+  <button onclick="iniciar()">Começar Teste</button>
+</div>
 
-        <!-- 💳 PAGAMENTO -->
-        <div id="payment" class="payment">
-            <h2>🎉 Teste Concluído com Sucesso!</h2>
-            <p>Seu <strong>resultado detalhado do QI</strong> está pronto!<br>Desbloqueie agora por apenas:</p>
-            <div class="price">R$ 5,00</div>
-            
-            <div class="pix-container">
-                <div style="font-size:1.3rem; margin-bottom:15px; color:#2c3e50; font-weight:600;">PIX IMEDIATO</div>
-                <div class="pix-key">61415f07-5f00-42c5-b9e7-bfae1916e4e3</div>
-                <div style="font-size:1rem; color:#666; margin-top:15px;">Copie e cole no seu app do banco</div>
-            </div>
-            
-            <p style="font-size:1.1rem; color:#666;">
-                💡 Após pagar R$5,00 clique abaixo e receba seu QI instantaneamente!
-            </p>
-            <button class="btn-nav btn-pay" onclick="showResult()">
-                ✅ CONFIRMO O PAGAMENTO - MOSTRAR MEU QI
-            </button>
-        </div>
+<script>
+let perguntaAtual = 0;
+let respostas = [];
 
-        <!-- 📊 RESULTADO -->
-        <div id="result" class="result">
-            <h2>🏆 Seu Resultado Oficial</h2>
-            <div class="qi-score" id="qiScore">127</div>
-            <div class="classification" id="classification">🔥 ACIMA DA MÉDIA</div>
-            <div id="explanation" class="explanation">
-                Parabéns! Seu QI de <span id="qiValue">127</span> está no <strong>top 15% da população</strong>.<br>
-                Você demonstrou excelente habilidade em lógica, matemática e padrões.<br><br>
-                <strong>💡 O que isso significa:</strong><br>
-                - Capacidade superior de resolver problemas complexos<br>
-                - Aprendizado 3x mais rápido que a média<br>
-                - Potencial para carreiras de alto nível
-            </div>
-            <button class="btn-share btn-nav" onclick="shareResult()">📱 Compartilhar no WhatsApp</button>
-            <button class="btn-primary" onclick="startTest()" style="margin-top:20px;">🔄 Novo Teste</button>
-            <p style="margin-top:30px; color:#666; font-size:0.95rem;">
-                Teste certificado • Resultados confiáveis • Pagamento 100% seguro
-            </p>
-        </div>
-    </div>
+const perguntas = Array.from({length: 32}, (_, i) => ({
+  pergunta: `Pergunta ${i+1}: Qual número completa a sequência ${i}, ${i+2}, ${i+4}, ?`,
+  opcoes: [i+6, i+5, i+7, i+8],
+  correta: 0
+}));
 
-    <script>
-        // 📚 32 PERGUNTAS DE QI (Lógica, Matemática, Padrões)
-        const questions = [
-            {q:"Qual NÃO pertence? 2, 4, 6, 8, 9, 10", a:["A) 2","B) 9","C) 6","D) 10"], c:1, t:"lógica"},
-            {q:"Se 5=10, 6=18, 7=28, então 8=?", a:["A) 36","B) 40","C) 44","D) 32"], c:1, t:"mat"},
-            {q:"2, 4, 8, 16, ?", a:["A) 24","B) 28","C) 32","D) 64"], c:3, t:"padrao"},
-            {q:"JFMAMJJAS ?", a:["A) OND","B) NOD","C) ODN","D) DNO"], c:0, t:"padrao"},
-            {q:"3 maçãs = R$6. Com R$20, quantas?", a:["A) 9","B) 10","C) 11","D) 12"], c:1, t:"mat"},
-            {q:"Ultrapassa 2º numa corrida. Qual posição?", a:["A) 1º","B) 2º","C) 3º","D) Último"], c:1, t:"lógica"},
-            {q:"1, 4, 9, 16, 25, ?", a:["A) 30","B) 36","C) 42","D) 49"], c:1, t:"padrao"},
-            {q:"15% de 200?", a:["A) 20","B) 25","C) 30","D) 35"], c:2, t:"mat"},
-            {q:"▲ □ ▲ □ ?", a:["A) ▲","B) □","C) ●","D) ♦"], c:0, t:"padrao"},
-            {q:"x + 5 = 17. x=?", a:["A) 10","B) 11","C) 12","D) 13"], c:2, t:"mat"},
-            {q:"AZ BY CX ?", a:["A) DW","B) EV","C) FU","D) GW"], c:0, t:"padrao"},
-            {q:"Dia depois do dia antes de ontem?", a:["A) Hoje","B) Amanhã","C) Ontem","D) Depois"], c:0, t:"lógica"},
-            {q:"Quadrado lado 6. Área?", a:["A) 24","B) 30","C) 36","D) 42"], c:2, t:"mat"},
-            {q:"1, 3, 6, 10, 15, ?", a:["A) 20","B) 21","C) 22","D) 25"], c:1, t:"padrao"},
-            {q:"4 trabalhadores = 1 muro em 5 dias. 10 trabalhadores?", a:["A) 1","B) 2","C) 3","D) 4"], c:1, t:"mat"},
-            {q:"Todos gatos miam. Alguns animais miam. Logo?", a:["A) Todos animais=gatos","B) Alguns gatos não miam","C) Alguns animais=gatos","D) Nenhum gato mia"], c:2, t:"lógica"},
-            {q:"2/3 de 12?", a:["A) 6","B) 7","C) 8","D) 9"], c:2, t:"mat"},
-            {q:"3, 7, 13, 21, ?", a:["A) 28","B) 30","C) 31","D) 33"], c:2, t:"padrao"},
-            {q:"A pai de B. B irmão C. C filha D. A com D?", a:["A) A pai D","B) D esposa A","C) A filho D","D) D pai A"], c:1, t:"lógica"},
-            {q:"Trem 14:20 às 16:45. Duração?", a:["A) 2h15","B) 2h25","C) 2h35","D) 2h45"], c:1, t:"mat"},
-            {q:"Se todos ZEPS=ZEPS, alguns ZEPS=ZEUS:", a:["A) Todos ZEUS=ZEPS","B) Alguns ZEUS=ZEPS","C) Nenhum ZEUS=ZEPS","D) Todos ZEPS=ZEUS"], c:1, t:"lógica"},
-            {q:"Próximo: 1, 1, 2, 3, 5, ?", a:["A) 6","B) 7","C) 8","D) 9"], c:2, t:"padrao"},
-            {q:"25% de 80?", a:["A) 15","B) 18","C) 20","D) 25"], c:2, t:"mat"},
-            {q:"ODD EVEN ?", a:["A) ODD","B) EVEN","C) O E","D) E O"], c:1, t:"padrao"},
-            {q:"9=81, 8=64, 7=49, 6=?", a:["A) 25","B) 30","C) 36","D) 42"], c:2, t:"mat"},
-            {q:"Filho do seu pai, mas não seu irmão?", a:["A) Você","B) Tio","C) Primo","D) Avô"], c:0, t:"lógica"},
-            {q:"1+2=3, 2+3=10, 3+4=21, 4+5=?", a:["A) 35","B) 36","C) 37","D) 38"], c:1, t:"mat"},
-            {q:"A1 B2 C3 ?", a:["A) D4","B) E5","C) F6","D) G7"], c:0, t:"padrao"},
-            {q:"Média de 10, 20, 30?", a:["
+function iniciar() {
+  perguntaAtual = 0;
+  respostas = [];
+  mostrarPergunta();
+}
+
+function mostrarPergunta() {
+  let p = perguntas[perguntaAtual];
+
+  document.getElementById("app").innerHTML = `
+    <h3>Pergunta ${perguntaAtual + 1} de 32</h3>
+    <p>${p.pergunta}</p>
+    ${p.opcoes.map((op, i) => `
+      <div class="opcao" onclick="responder(${i})">${op}</div>
+    `).join("")}
+  `;
+}
+
+function responder(opcao) {
+  respostas.push(opcao);
+  perguntaAtual++;
+
+  if (perguntaAtual < 32) {
+    mostrarPergunta();
+  } else {
+    telaPagamento();
+  }
+}
+
+function telaPagamento() {
+  document.getElementById("app").innerHTML = `
+    <h2>Resultado pronto!</h2>
+    <p>Para ver seu resultado, pague R$ 5,00</p>
+    <button onclick="pagar()">Pagar com PIX</button>
+  `;
+}
+
+function pagar() {
+  mostrarResultado();
+}
+
+function mostrarResultado() {
+  let acertos = respostas.filter((r, i) => r === perguntas[i].correta).length;
+  let qi = 80 + acertos;
+
+  let nivel = "Médio";
+  if (qi > 110) nivel = "Alto";
+  if (qi > 130) nivel = "Muito alto";
+
+  document.getElementById("app").innerHTML = `
+    <h2>Seu QI: ${qi}</h2>
+    <p>Nível: ${nivel}</p>
+  `;
+}
+</script>
+
+</body>
+</html>
